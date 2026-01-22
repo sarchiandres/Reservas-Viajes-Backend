@@ -55,12 +55,13 @@ public class UsuarioServices {
         Usuario existingUser = getUserById(id);
         if ((updatedUser.getName() != null) && (updatedUser.getEmail() != null)
                 && (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty())
-                && (updatedUser.getRole() != null)) {
+                && (updatedUser.getRole() != null)  && (updatedUser.getCedula() != 0L)) {
 
             existingUser.setName(updatedUser.getName());
             existingUser.setEmail(updatedUser.getEmail());
             existingUser.setRole(updatedUser.getRole());
             existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+            existingUser.setCedula(updatedUser.getCedula());
         }
 
         return usuarioRepository.save(existingUser);
