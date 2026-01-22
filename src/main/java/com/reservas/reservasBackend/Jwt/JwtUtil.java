@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import org.springframework.stereotype.Component;
 
 import com.reservas.reservasBackend.models.Entities.Usuario;
@@ -16,14 +15,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 
-
 @Component
 @RequiredArgsConstructor
 public class JwtUtil {
 
     private final JwtProperties jwtProperties;
-
-  
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
@@ -42,8 +38,7 @@ public class JwtUtil {
                 .setSubject(user.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(
-                    new Date(System.currentTimeMillis() + jwtProperties.getExpiration())
-                )
+                        new Date(System.currentTimeMillis() + jwtProperties.getExpiration()))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -67,12 +62,6 @@ public class JwtUtil {
             return false;
         }
     }
-
-
-    public String extractUsername(String token) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'extractUsername'");
-    }   
 
 
 }

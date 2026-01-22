@@ -9,4 +9,6 @@ public class UsuarioDto {
     private String email;
     private String password;
     private String role;
+    private long cedula;
+
 }

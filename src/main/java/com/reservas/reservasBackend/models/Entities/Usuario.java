@@ -27,6 +27,8 @@ public class Usuario {
     @Column ( name = "contraseña", nullable = false)
     private String password;
 
+    @Column(name = "cedula")
+    private long cedula ;
     
     @Column ( name = "rol" ,columnDefinition = "Enum('admin','cliente')" ,nullable = false  )
     private String role;

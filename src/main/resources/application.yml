@@ -16,4 +16,4 @@ spring:
 
 jwt:
   secret: ${JWT_TOKEN}
-  expiration: 3600000
+  expiration: 36000000

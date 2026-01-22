@@ -21,8 +21,8 @@ public class UsuarioServices {
     private final PasswordEncoder passwordEncoder;
 
     public Map<String, Object> saveUser(UsuarioDto usuarioDto) {
-        if (usuarioRepository.findByEmail(usuarioDto.getEmail()).isPresent()) {
-            throw new RuntimeException("El email ya está en uso : " + usuarioDto.getEmail());
+        if (usuarioRepository.findByCedula(usuarioDto.getCedula()).isPresent()) {
+            throw new RuntimeException("El cedula ya está en uso : " + usuarioDto.getCedula());
         }
 
         String typeUser = usuarioDto.getRole();
@@ -34,6 +34,7 @@ public class UsuarioServices {
         Usuario usuario = new Usuario();
         usuario.setName(usuarioDto.getName());
         usuario.setEmail(usuarioDto.getEmail());
+        usuario.setCedula(usuarioDto.getCedula());
         usuario.setPassword(passwordEncoder.encode(usuarioDto.getPassword()));
         usuario.setRole(typeUser);
         usuarioRepository.save(usuario);
