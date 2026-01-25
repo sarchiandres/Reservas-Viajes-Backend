@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 
 import lombok.Data;
 
+
+
 @Configuration
 @ConfigurationProperties(prefix = "jwt")
 @Data
@@ -14,6 +16,7 @@ public class JwtProperties {
     private long expiration;
 
     
+
 
 }
 

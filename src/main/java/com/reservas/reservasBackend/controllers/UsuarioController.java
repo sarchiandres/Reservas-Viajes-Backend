@@ -84,18 +84,26 @@ public class UsuarioController {
 
     @PutMapping("/editar")
     public ResponseEntity<?> updateMyUser(HttpServletRequest request, @RequestBody UsuarioDto usuarioDto) {
-
         try {
+
             String authHeader = request.getHeader("Authorization");
+            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                return ResponseEntity.status(401).body(Map.of("error", "Token no proporcionado"));
+            }
+
             String token = authHeader.substring(7);
-            if (token == null)
-                return ResponseEntity.status(401).build();
             Claims claims = jwtUtil.extractAllClaims(token);
+
             Long userId = Long.valueOf(claims.get("id").toString());
-            Usuario response = usuarioServices.updateUser(userId, usuarioDto);
-            return ResponseEntity.ok(response);
+
+            Usuario updatedUser = usuarioServices.updateUser(userId, usuarioDto);
+            String newToken = jwtUtil.generateToken(updatedUser);
+            return ResponseEntity.ok(Map.of(
+                    "user", updatedUser,
+                    "token", newToken));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
+
 }
